@@ -22,52 +22,53 @@ export default function() {
         {
           links.map((link) => (
             <li key={link.title}>
-              <Bubble title={link.title} body={link.body} >
-                <Button
-                  variant="outline"
-                  className="flex items-center relative shadow  justify-center rounded-full bg-[#e9beec] h-[14rem] w-[14rem]"
-                >
-                  {link.title}
-                </Button>
-              </Bubble>
+              <Dialog title={link.title} body={link.body} >
+                {link.title}
+              </Dialog>
             </li>
           ))
         }
-        <Bubble title="Nuevo mensaje" body={message} >
-          <Button
-            onClick={() => setUnreadMessage(_ => false)}
-            variant="outline"
-            className="flex items-center relative shadow  justify-center rounded-full bg-[#e9beec] h-[14rem] w-[14rem]"
-          >
-            <img className="h-[4rem]" src="/message.png" />
-            {
-              unreadMessage && (
-                <div className="h-[1rem] w-[1rem] bg-red-500 rounded-full absolute top-[5rem] animate-bounce right-[4.2rem]"></div>
-              )
-            }
-          </Button>
-        </Bubble>
+        <Dialog
+          title="Nuevo mensaje"
+          body={message}
+          onClick={() => setUnreadMessage(false)}
+        >
+          <img className="h-[4rem]" src="/message.png" />
+          {
+            unreadMessage && (
+              <div className="h-[1rem] w-[1rem] bg-red-500 rounded-full absolute top-[5rem] animate-bounce right-[4.2rem]"></div>
+            )
+          }
+        </Dialog>
       </ul>
     </nav >
   )
 }
 
-type BubbleProps = {
+type DialogProps = {
   title: string,
   body: string,
   children: ReactNode
+  onClick?: () => void
 }
 
-function Bubble({
+function Dialog({
   title,
   body,
-  children
-}: BubbleProps) {
+  children,
+  onClick
+}: DialogProps) {
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        {children}
+        <Button
+          onClick={onClick}
+          variant="outline"
+          className="flex items-center relative shadow  justify-center rounded-full bg-[#e9beec] h-[14rem] w-[14rem]"
+        >
+          {children}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
