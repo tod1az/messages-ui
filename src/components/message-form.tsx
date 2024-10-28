@@ -8,7 +8,7 @@ export default function MessageForm() {
   const { setMessage, setUnreadMessage } = useMessagesContext()
 
   const [alias, setAlias] = useState<string>()
-  const [newMessage, setNewMessage] = useState<string>()
+  const [newMessage, setNewMessage] = useState<string>("")
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value
@@ -42,10 +42,10 @@ export default function MessageForm() {
         className={`flex items-center text-center placeholder-black/70 
                     shadow transition-all duration-500 px-4 h-[4rem]  
                     w-[60vw] bg-[#e9beec] rounded-xl`}
+        onChange={handleChange}
         value={newMessage}
         placeholder="Ingresa tu mensaje de gratitud"
         name="message"
-        onChange={handleChange}
       />
       <Button variant="outline" className="flex w-fit rounded-lg px-4 py-2 bg-[#468ea4] shadow text-white">
         Enviar
